@@ -23,7 +23,11 @@ libraryDependencies += "io.spray" %%  "spray-json" % "1.3.1"
 
 libraryDependencies += "org.json4s" %% "json4s-native" % "3.2.11"
 
-libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1" % "test"
+
+libraryDependencies += "org.mongodb" %% "casbah" % "2.7.4"
+
+libraryDependencies += "org.slf4j" % "slf4j-simple" % "1.7.7"
 
 
 // Initial declaration from spray template below, but IDEA14 complains about this:
@@ -31,3 +35,4 @@ libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.1" % "test"
 // ... so replaced by this thanks to
 // http://stackoverflow.com/questions/19578611/idea-complains-about-revolver-settings-when-trying-to-parse-spray-templates-bui
 Revolver.settings: Seq[sbt.Def.Setting[_]]
+

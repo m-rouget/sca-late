@@ -1,3 +1,5 @@
+import scala.concurrent.duration._
+
 import akka.actor.{ActorSystem, Props}
 import akka.testkit.{ImplicitSender, TestKit}
 import io.scalate._
@@ -16,13 +18,14 @@ with WordSpecLike with Matchers with BeforeAndAfterAll {
     val worker = system.actorOf(Props[engine.Worker])
 
     "accept well-formed log messages and return 201" in {
-      worker ! engine.LogInsertion("ALPHA", "BETA", "GAMMA")
-      expectMsg(engine.LogResponse(201))
+      worker ! engine.LogInsertion("ALPHA", "BETA", "GAMMA"+scala.util.Random.nextInt)
+      expectMsgClass(2 seconds, classOf[engine.LogInserted])
     }
 
     "reject ill-formed log messages and return 400" in {
-      worker ! 201
-      expectMsg(engine.LogResponse(400))
+      worker ! "Sponge Bob"
+      val ret = expectMsgClass(2 seconds, classOf[engine.LogInsertionError])
+      ret.status should be(400)
     }
   }
 }
